@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    triggers {
+        scm('master') // Trigger build on changes to the master branch
+    }
+
+    stages {
+        stage('Pull Code') {
+            steps {
+                git branch: 'master', git credentialsId: '17b1fb60-29ad-4f5c-91d1-e816e70a1135', url: 'https://github.com/ShadowedBlitz/WebApp-Jenkin-Test'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'python WebApp.py' // Assuming Python 3 is installed on Jenkins server
+            }
+        }
+    }
+}
